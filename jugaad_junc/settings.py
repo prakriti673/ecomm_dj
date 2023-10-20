@@ -10,7 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
-
+import dj_database_url
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-!rm)n16j++@1k$s$fhwxrho-&*^wag-a)lf1lfylz@d47v$xd9
 DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app']
-
+# ALLOWED_HOSTS = ['127.0.0.1']
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -86,11 +87,22 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'postgresql://postgres:FmKp5ntJ1Frmc1MVr3o1@containers-us-west-129.railway.app:7417/railway',
+#         'PORT': '5432',
+#     }
+# }
+DATABASES['default']= dj_database_url.config('DATABASE_URL')
 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
+ 
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -122,8 +134,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR/ "staticfiles_build" / "static"
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
