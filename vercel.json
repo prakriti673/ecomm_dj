@@ -1,21 +1,3 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "jugaad_junc/wsgi.py",
-            "use": "@vercel/python",
-            "config": { 
-                "maxLambdaSize": "15mb",
-                "runtime": "python3.9"
-            }
-        }
-       
-    ],
-    "routes": [
-        
-        {
-            "src": "/(.*)",
-            "dest": "jugaad_junc/wsgi.py"
-        }
-    ]
+    "version": 2
 }
